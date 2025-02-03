@@ -23,7 +23,7 @@ class NumberClassifierView(APIView):
         except ValueError:
             return None, Response(
                 {
-                    "number": raw_number,
+                    "number": "alphabet" if raw_number.isalpha() else raw_number,
                     "error": True
                 },
                 status=status.HTTP_400_BAD_REQUEST

@@ -23,12 +23,12 @@ GET /classify-number
 ### Live Demo
 The API is deployed and accessible at:
 ```
-https://legislative-pierrette-kenward-dc9303b6.koyeb.app/classify-number?number=<your-number>
+https://legislative-pierrette-kenward-dc9303b6.koyeb.app/api/classify-number?number=<your-number>
 ```
 
 Example:
 ```
-https://legislative-pierrette-kenward-dc9303b6.koyeb.app/classify-number?number=401
+https://legislative-pierrette-kenward-dc9303b6.koyeb.app/api/classify-number?number=371
 ```
 
 ### Query Parameters
@@ -106,7 +106,7 @@ python manage.py runserver
 
 The API is deployed and accessible at:
 ```
-https://legislative-pierrette-kenward-dc9303b6.koyeb.app/
+https://legislative-pierrette-kenward-dc9303b6.koyeb.app/api/
 ```
 
 For production deployment:
