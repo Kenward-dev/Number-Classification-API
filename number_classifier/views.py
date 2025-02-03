@@ -1,13 +1,19 @@
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import math
 
 class NumberClassifierView(APIView):
-    @method_decorator(cache_page(60*15))
+    def __init__(self):
+        self.session = requests.Session()
+        
+        # Enable retries for session
+        retries = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
+        self.session.mount('http://', HTTPAdapter(max_retries=retries))
+        
     def validate_number(self, request):
         # Get raw number from query params
         raw_number = request.query_params.get('number')
@@ -93,9 +99,9 @@ class NumberClassifierView(APIView):
     def get_fun_fact(self, number: int) -> str:
         """Fetch fun fact from Numbers API."""
         try:
-            response = requests.get(
+            response = self.session.get(
                 f"http://numbersapi.com/{number}/math",
-                timeout=5  
+                timeout=3  
             )
             if response.status_code == 200:
                 return response.text
