@@ -21,7 +21,7 @@ class NumberClassifierView(APIView):
         # Check if number parameter exists
         if not raw_number:
             return None, Response(
-                {"error": "Number parameter is required"},
+                {"number": "Number parameter is required", "error": true},
                 status=status.HTTP_400_BAD_REQUEST
             )
             
@@ -33,7 +33,7 @@ class NumberClassifierView(APIView):
             return None, Response(
                 {
                     "number": "alphabet" if raw_number.isalpha() else raw_number,
-                    "error": True
+                    "error": true
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
